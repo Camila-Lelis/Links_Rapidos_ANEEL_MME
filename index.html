@@ -32,10 +32,14 @@ body{
    do site, trocando apenas o texto do título.
    ════════════════════════════════════════════════════════════ */
 .topbar{
+  --sym:clamp(104px,11.5vw,148px);   /* largura do símbolo da diretoria */
   position:relative; overflow:hidden;
   display:flex; align-items:center; justify-content:center;
-  min-height:clamp(74px,8.4vw,104px);
-  padding:16px 26px;
+  /* O símbolo é um sistema de elipses achatadas: seu viewBox foi
+     recortado para o conteúdo real, numa proporção de cerca de 2:1.
+     Por isso ele pode ser largo sem exigir altura da faixa. */
+  min-height:clamp(78px,8.2vw,100px);
+  padding:4px 0;
   background:linear-gradient(100deg,
     #124A44 0%, #165D54 23%, #12776F 49%, #0F6E6B 66%, #0A4750 100%);
 }
@@ -57,11 +61,32 @@ body{
 }
 /* faixas e curvas */
 .tb-art{ position:absolute; inset:0; width:100%; height:100%; pointer-events:none; }
+/* O fundo sangra de ponta a ponta, mas o conteúdo segue a mesma
+   largura máxima e o mesmo recuo lateral do .wrap. É isso que alinha
+   o símbolo com a borda direita dos cards logo abaixo. */
+.tb-inner{
+  position:relative; z-index:2;
+  width:100%; max-width:1180px; margin:0 auto; padding:0 22px;
+  display:flex; align-items:center; justify-content:space-between; gap:14px;
+}
 .tb-title{
-  position:relative; z-index:2; margin:0; text-align:center;
+  position:relative; z-index:2; flex:1; min-width:0; margin:0; text-align:center;
+  /* Trebuchet MS é a fonte do banner original do site */
+  font-family:"Trebuchet MS","Lucida Grande","Lucida Sans Unicode","Lucida Sans",Tahoma,sans-serif;
   color:#fff; font-style:italic; font-weight:800;
   font-size:clamp(19px,2.7vw,34px); line-height:1.15; letter-spacing:.2px;
   text-shadow:0 2px 12px rgba(0,0,0,.30);
+}
+/* espaçador do mesmo tamanho do símbolo: é ele que mantém o título
+   opticamente centralizado, em vez de deslocado para a esquerda.
+   Neste tópico não há símbolo, então os dois ficam sem uso: são
+   mantidos para o bloco do cabeçalho ser idêntico nos três arquivos. */
+.tb-vazio{ flex:0 0 var(--sym); width:var(--sym); }
+.tb-sym{ flex:0 0 var(--sym); width:var(--sym); height:auto; }
+@media(max-width:620px){ .tb-inner{ padding:0 15px; } }
+@media(max-width:560px){
+  .tb-vazio{ display:none; }
+  .topbar{ --sym:66px; }
 }
 /* ══════════════════ fim do cabeçalho padrão ══════════════════ */
 
@@ -149,7 +174,9 @@ body{
       <path d="M-20 62 C 220 31, 430 21, 780 13"    stroke-width=".9" opacity=".6"/>
     </g>
   </svg>
-  <h1 class="tb-title">Links Rápidos - Setor Elétrico</h1>
+  <div class="tb-inner">
+    <h1 class="tb-title">Links Rápidos - Setor Elétrico</h1>
+  </div>
 </header>
 
 <div class="wrap">
