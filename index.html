@@ -3,276 +3,268 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Links Rápidos – Setor Elétrico</title>
+<title>Links Rápidos - Setor Elétrico | DREG | Grupo Energisa</title>
 <style>
-  :root {
-    --card-bg: #0f1728;
-    --card-border: rgba(130,170,230,0.14);
-    --chip-bg: #ffffff;
-    --gold: #f5b83f;
-    --gold-bright: #ffc94d;
-    --blue-accent: #3d8bfd;
-    --text: #eaf0fa;
-    --muted: #8b97ad;
-    --item-bg: #131d31;
-    --item-bg-hover: #182642;
-    --item-border: rgba(130,170,230,0.10);
-    --card-radius: 18px;
-    --item-radius: 12px;
-  }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body {
-    background: transparent;
-    font-family: 'Segoe UI', 'Trebuchet MS', sans-serif;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 32px 24px;
-    color: var(--text);
-  }
+/* ============================================================
+   LINKS RÁPIDOS / componente para a página do SharePoint
+   Mesmo padrão visual do componente das gerências da DREG.
+   Sem JavaScript.
+   ============================================================ */
 
-  /* ---- Cards ---- */
-  .wrapper {
-    display: flex;
-    gap: 24px;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: flex-start;
-    max-width: 1040px;
-    width: 100%;
-  }
-  .card {
-    background: var(--card-bg);
-    border: 1px solid var(--card-border);
-    border-radius: var(--card-radius);
-    box-shadow: 0 6px 24px rgba(15,23,40,0.22);
-    padding: 22px;
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    flex: 1 1 440px;
-    min-width: 340px;
-    max-width: 508px;
-    transition: border-color .2s, box-shadow .2s;
-  }
-  .card:hover {
-    border-color: rgba(245,184,63,0.55);
-    box-shadow: 0 10px 30px rgba(15,23,40,0.30);
-  }
+:root{
+  --en-azul:#009FC2;  --en-azul-tx:#007894;
+  --en-laranja:#F37021;
+  --nv:#004758;  --nv-tx:#003D4C;
+  --ink:#1F2A33; --muted:#5B6B78; --soft:#71838E;
+  --border:#E3E9EE; --bg:#F6F8FA; --wh:#FFFFFF;
+}
+*{ box-sizing:border-box; }
+body{
+  margin:0; padding:0; background:var(--wh); color:var(--ink);
+  font-family:"Segoe UI",Inter,system-ui,-apple-system,Arial,sans-serif;
+  font-size:14px; line-height:1.55; -webkit-font-smoothing:antialiased;
+}
 
-  /* Chip branco para a logo manter as cores originais no fundo escuro */
-  .logo-chip {
-    background: var(--chip-bg);
-    border-radius: 12px;
-    padding: 14px 24px;
-    min-height: 68px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    align-self: center;
-    min-width: 220px;
-  }
-  .logo-chip img {
-    max-height: 56px;
-    max-width: 210px;
-    object-fit: contain;
-  }
-  /* Fallback: se a logo não carregar, mostra o nome estilizado */
-  .wordmark {
-    display: none;
-    font-size: 22px;
-    font-weight: 800;
-    letter-spacing: 2px;
-    color: #123a63;
-  }
-  .card-caption {
-    color: var(--muted);
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 1.2px;
-    text-align: center;
-  }
+/* ════════════════════════════════════════════════════════════
+   CABEÇALHO PADRÃO DOS TÓPICOS
+   Bloco reutilizável: copiar este trecho de CSS junto com o
+   elemento de cabeçalho correspondente em qualquer outro tópico
+   do site, trocando apenas o texto do título.
+   ════════════════════════════════════════════════════════════ */
+.topbar{
+  position:relative; overflow:hidden;
+  display:flex; align-items:center; justify-content:center;
+  min-height:clamp(74px,8.4vw,104px);
+  padding:16px 26px;
+  background:linear-gradient(100deg,
+    #124A44 0%, #165D54 23%, #12776F 49%, #0F6E6B 66%, #0A4750 100%);
+}
+/* clarão à esquerda e sopro de luz ao redor */
+.topbar::before{
+  content:""; position:absolute; inset:0; pointer-events:none;
+  background:
+    radial-gradient(ellipse 10% 120% at 18% 48%, rgba(255,255,255,.40), rgba(255,255,255,.07) 34%, transparent 66%),
+    radial-gradient(ellipse 36% 190% at 30% 50%, rgba(150,240,228,.11), transparent 64%),
+    radial-gradient(ellipse 60% 140% at 50% 120%, rgba(0,0,0,.20), transparent 62%);
+}
+/* trama de pontos, esmaecendo para as bordas */
+.topbar::after{
+  content:""; position:absolute; inset:0; pointer-events:none; opacity:.55;
+  background-image:radial-gradient(circle, rgba(255,255,255,.60) .9px, transparent 1.15px);
+  background-size:9px 9px;
+  -webkit-mask-image:linear-gradient(90deg, transparent 50%, #000 76%, rgba(0,0,0,.35) 100%);
+          mask-image:linear-gradient(90deg, transparent 50%, #000 76%, rgba(0,0,0,.35) 100%);
+}
+/* faixas e curvas */
+.tb-art{ position:absolute; inset:0; width:100%; height:100%; pointer-events:none; }
+.tb-title{
+  position:relative; z-index:2; margin:0; text-align:center;
+  color:#fff; font-style:italic; font-weight:800;
+  font-size:clamp(19px,2.7vw,34px); line-height:1.15; letter-spacing:.2px;
+  text-shadow:0 2px 12px rgba(0,0,0,.30);
+}
+/* ══════════════════ fim do cabeçalho padrão ══════════════════ */
 
-  /* ---- Lista de links (2 colunas) ---- */
-  .link-list {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-  }
-  @media (max-width: 640px) {
-    .link-list { grid-template-columns: 1fr; }
-  }
-  .item {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    background: var(--item-bg);
-    border: 1px solid var(--item-border);
-    border-left: 3px solid transparent;
-    border-radius: var(--item-radius);
-    padding: 12px 14px;
-    text-decoration: none;
-    transition: background .18s, border-color .18s, transform .12s;
-  }
-  .item:hover {
-    background: var(--item-bg-hover);
-    border-left-color: var(--gold);
-    transform: translateY(-1px);
-  }
-  .item:focus-visible {
-    outline: 2px solid var(--gold);
-    outline-offset: 2px;
-  }
-  .item-main {
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
-    flex: 1;
-  }
-  .item-title {
-    color: var(--text);
-    font-weight: 600;
-    font-size: 14px;
-  }
-  .item-desc {
-    color: var(--muted);
-    font-size: 12px;
-    line-height: 1.35;
-  }
-  .item-arrow {
-    color: var(--gold);
-    font-size: 18px;
-    font-weight: 700;
-    flex-shrink: 0;
-    transition: transform .18s, color .18s;
-  }
-  .item:hover .item-arrow {
-    transform: translateX(3px);
-    color: var(--gold-bright);
-  }
+.wrap{ max-width:1180px; margin:0 auto; padding:26px 22px 34px; }
 
-  @media (prefers-reduced-motion: reduce) {
-    .item, .item-arrow { transition: none; }
-    .item:hover { transform: none; }
-  }
+.intro{ margin:0 0 20px; color:var(--muted); font-size:13.5px; line-height:1.55; max-width:680px; }
+
+/* ---------------- cartões das instituições ---------------- */
+/* stretch: os dois cartões ficam do mesmo tamanho, ainda que sobre
+   espaço em branco no que tiver menos atalhos. */
+.orgs{ display:grid; grid-template-columns:1fr 1fr; gap:18px; align-items:stretch; }
+
+.org{
+  display:flex; flex-direction:column;
+  border:1px solid var(--border); border-radius:12px; background:var(--wh);
+  border-top:9px solid var(--cor);
+  padding:17px 19px 16px; position:relative;
+  box-shadow:0 1px 3px rgba(31,42,51,.05);
+  transition:box-shadow .25s ease, border-color .25s ease;
+}
+.org::before{
+  content:""; position:absolute; inset:0 0 auto 0; height:70px; border-radius:11px 11px 0 0;
+  background:linear-gradient(180deg,var(--cor-bg),rgba(255,255,255,0));
+  pointer-events:none; z-index:0;
+}
+.org > *{ position:relative; z-index:1; }
+.org:hover{ box-shadow:0 10px 28px rgba(24,55,72,.10);
+  border-left-color:var(--cor-bd); border-right-color:var(--cor-bd); border-bottom-color:var(--cor-bd); }
+
+.org.aneel{ --cor:var(--en-azul); --cor-tx:var(--en-azul-tx); --cor-bg:rgba(0,159,194,.10); --cor-bd:rgba(0,159,194,.30); }
+.org.mme{   --cor:var(--nv);      --cor-tx:var(--nv-tx);      --cor-bg:rgba(0,71,88,.09);   --cor-bd:rgba(0,71,88,.26); }
+
+.org-top{ display:flex; align-items:baseline; gap:11px; flex-wrap:wrap; margin-bottom:4px; }
+.org-sigla{ color:var(--cor-tx); font-size:21px; font-weight:820; letter-spacing:.4px; line-height:1; }
+.org-nome{ margin:0; color:var(--nv); font-size:13.5px; font-weight:660; line-height:1.25; }
+.org-count{ margin:0 0 13px; padding-bottom:11px; border-bottom:1px dashed var(--border);
+  color:var(--soft); font-size:11px; font-weight:650; }
+.org-count b{ color:var(--cor-tx); font-size:12.5px; font-weight:800; }
+
+/* ---------------- lista de links ---------------- */
+.links{ display:grid; grid-template-columns:1fr 1fr; gap:9px; align-content:start; }
+.link{
+  display:flex; align-items:flex-start; gap:10px;
+  padding:11px 12px; border-radius:10px; text-decoration:none;
+  background:var(--bg); border:1px solid var(--border);
+  border-left:3px solid transparent;
+  transition:background .18s, border-color .18s, transform .14s, box-shadow .18s;
+}
+.link:hover{
+  background:var(--wh); border-color:var(--cor-bd); border-left-color:var(--cor);
+  box-shadow:0 5px 14px rgba(40,76,91,.08); transform:translateY(-1px);
+}
+.link:focus-visible{ outline:2px solid var(--cor); outline-offset:2px; }
+.link-main{ flex:1; min-width:0; }
+.link-title{ display:block; color:var(--nv); font-size:13px; font-weight:680; line-height:1.25; }
+.link-desc{ display:block; margin-top:3px; color:var(--muted); font-size:11.5px; line-height:1.4; }
+.link-arrow{
+  flex-shrink:0; margin-top:1px; color:var(--en-laranja);
+  font-size:15px; font-weight:800; line-height:1.3; transition:transform .18s;
+}
+.link:hover .link-arrow{ transform:translateX(3px); }
+
+/* ---------------- responsivo ---------------- */
+@media(max-width:980px){ .orgs{ grid-template-columns:1fr; } }
+@media(max-width:620px){
+  .wrap{ padding:20px 15px 26px; }
+  .links{ grid-template-columns:1fr; }
+}
+@media(prefers-reduced-motion:reduce){ *{ transition-duration:.01ms!important; } }
 </style>
 </head>
 <body>
 
-  <div class="wrapper">
+<!-- ══════════ CABEÇALHO PADRÃO DO TÓPICO ══════════ -->
+<header class="topbar">
+  <svg class="tb-art" viewBox="0 0 1200 100" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+    <g fill="none" stroke="#FFFFFF" opacity=".24">
+      <path d="M-20 76 C 260 44, 540 27, 1220 7"   stroke-width="1"/>
+      <path d="M-20 90 C 300 60, 650 41, 1220 27"  stroke-width=".8" opacity=".62"/>
+      <path d="M-20 34 C 240 20, 520 13, 1220 -2"  stroke-width=".7" opacity=".45"/>
+    </g>
+    <g fill="none" stroke="#BFF3EC" opacity=".55">
+      <path d="M830 -12 C 892 30, 934 60, 1006 112" stroke-width="1.2"/>
+      <path d="M902 -12 C 968 34, 1004 62, 1078 112" stroke-width=".9" opacity=".72"/>
+      <path d="M-20 62 C 220 31, 430 21, 780 13"    stroke-width=".9" opacity=".6"/>
+    </g>
+  </svg>
+  <h1 class="tb-title">Links Rápidos - Setor Elétrico</h1>
+</header>
 
-    <!-- ============ CARD ANEEL ============ -->
-    <div class="card">
-      <div class="logo-chip">
-        <!-- COLE AQUI O src ORIGINAL: substitua COLE_O_BASE64_DA_ANEEL_AQUI
-             pelo valor completo do src (data:image/png;base64,...) do seu HTML original -->
-        <img src="COLE_O_BASE64_DA_ANEEL_AQUI" alt="ANEEL"
-             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-        <span class="wordmark">ANEEL</span>
+<div class="wrap">
+
+  <p class="intro">Acesso direto às páginas mais consultadas dos órgãos reguladores
+    e do ministério setorial.</p>
+
+  <!-- ══════════ INSTITUIÇÕES ══════════ -->
+  <div class="orgs">
+
+    <!-- ---------- ANEEL ---------- -->
+    <section class="org aneel" aria-label="ANEEL, Agência Nacional de Energia Elétrica">
+      <div class="org-top">
+        <span class="org-sigla">ANEEL</span>
+        <h2 class="org-nome">Agência Nacional de Energia Elétrica</h2>
       </div>
-      <div class="card-caption">Agência Nacional de Energia Elétrica</div>
-      <div class="link-list">
+      <p class="org-count"><b>6</b> atalhos</p>
+      <div class="links">
 
-        <a class="item" href="https://www.gov.br/aneel/pt-br/assuntos/noticias" target="_blank">
-          <div class="item-main">
-            <span class="item-title">Últimas Notícias</span>
-            <span class="item-desc">Comunicados e notícias mais recentes publicados pela ANEEL.</span>
-          </div>
-          <span class="item-arrow">&rarr;</span>
+        <a class="link" href="https://www.gov.br/aneel/pt-br/assuntos/noticias" target="_blank" rel="noopener noreferrer">
+          <span class="link-main">
+            <span class="link-title">Últimas Notícias</span>
+            <span class="link-desc">Comunicados e notícias mais recentes publicados pela ANEEL.</span>
+          </span>
+          <span class="link-arrow" aria-hidden="true">&rarr;</span>
         </a>
 
-        <a class="item" href="https://www2.aneel.gov.br/aplicacoes_liferay/noticias_area/dsp_listarNoticias.cfm?idAreaNoticia=425&c=0&idarea=425" target="_blank">
-          <div class="item-main">
-            <span class="item-title">Consulta de Pauta/Ata</span>
-            <span class="item-desc">Pautas e atas das reuniões públicas da Diretoria da ANEEL.</span>
-          </div>
-          <span class="item-arrow">&rarr;</span>
+        <a class="link" href="https://www2.aneel.gov.br/aplicacoes_liferay/noticias_area/dsp_listarNoticias.cfm?idAreaNoticia=425&amp;c=0&amp;idarea=425" target="_blank" rel="noopener noreferrer">
+          <span class="link-main">
+            <span class="link-title">Consulta de Pauta e Ata</span>
+            <span class="link-desc">Pautas e atas das reuniões públicas da Diretoria da ANEEL.</span>
+          </span>
+          <span class="link-arrow" aria-hidden="true">&rarr;</span>
         </a>
 
-        <a class="item" href="https://antigo.aneel.gov.br/tomadas-de-subsidios" target="_blank">
-          <div class="item-main">
-            <span class="item-title">Tomada de Subsídios</span>
-            <span class="item-desc">Coleta de contribuições preliminares sobre temas em estudo pela Agência.</span>
-          </div>
-          <span class="item-arrow">&rarr;</span>
+        <a class="link" href="https://antigo.aneel.gov.br/tomadas-de-subsidios" target="_blank" rel="noopener noreferrer">
+          <span class="link-main">
+            <span class="link-title">Tomada de Subsídios</span>
+            <span class="link-desc">Coleta de contribuições preliminares sobre temas em estudo pela Agência.</span>
+          </span>
+          <span class="link-arrow" aria-hidden="true">&rarr;</span>
         </a>
 
-        <a class="item" href="https://sei.aneel.gov.br/sei/modulos/pesquisa/md_pesq_processo_pesquisar.php?acao_externa=protocolo_pesquisar&acao_origem_externa=protocolo_pesquisar&id_orgao_acesso_externo=0" target="_blank">
-          <div class="item-main">
-            <span class="item-title">Consulta SEI</span>
-            <span class="item-desc">Pesquisa pública de processos e documentos no sistema SEI da ANEEL.</span>
-          </div>
-          <span class="item-arrow">&rarr;</span>
+        <a class="link" href="https://sei.aneel.gov.br/sei/modulos/pesquisa/md_pesq_processo_pesquisar.php?acao_externa=protocolo_pesquisar&amp;acao_origem_externa=protocolo_pesquisar&amp;id_orgao_acesso_externo=0" target="_blank" rel="noopener noreferrer">
+          <span class="link-main">
+            <span class="link-title">Consulta SEI</span>
+            <span class="link-desc">Pesquisa pública de processos e documentos no sistema SEI da ANEEL.</span>
+          </span>
+          <span class="link-arrow" aria-hidden="true">&rarr;</span>
         </a>
 
-        <a class="item" href="https://antigo.aneel.gov.br/consultas-publicas" target="_blank">
-          <div class="item-main">
-            <span class="item-title">Consultas Públicas</span>
-            <span class="item-desc">Propostas de atos regulatórios abertas à participação da sociedade.</span>
-          </div>
-          <span class="item-arrow">&rarr;</span>
+        <a class="link" href="https://antigo.aneel.gov.br/consultas-publicas" target="_blank" rel="noopener noreferrer">
+          <span class="link-main">
+            <span class="link-title">Consultas Públicas</span>
+            <span class="link-desc">Propostas de atos regulatórios abertas à participação da sociedade.</span>
+          </span>
+          <span class="link-arrow" aria-hidden="true">&rarr;</span>
         </a>
 
-        <a class="item" href="https://calculostarifarios.aneel.gov.br/lista-publica" target="_blank">
-          <div class="item-main">
-            <span class="item-title">Processos Tarifários</span>
-            <span class="item-desc">Acompanhamento dos reajustes e revisões tarifárias das distribuidoras.</span>
-          </div>
-          <span class="item-arrow">&rarr;</span>
-        </a>
-
-      </div>
-    </div>
-
-    <!-- ============ CARD MME ============ -->
-    <div class="card">
-      <div class="logo-chip">
-        <!-- COLE AQUI O src ORIGINAL: substitua COLE_O_BASE64_DO_MME_AQUI
-             pelo valor completo do src (data:image/png;base64,...) do seu HTML original -->
-        <img src="COLE_O_BASE64_DO_MME_AQUI" alt="Ministério de Minas e Energia"
-             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-        <span class="wordmark">MME</span>
-      </div>
-      <div class="card-caption">Ministério de Minas e Energia</div>
-      <div class="link-list">
-
-        <a class="item" href="https://www.gov.br/mme/pt-br/assuntos/conselhos-e-comites/cmse/atas" target="_blank">
-          <div class="item-main">
-            <span class="item-title">Atas CMSE</span>
-            <span class="item-desc">Atas do Comitê de Monitoramento do Setor Elétrico, presidido pelo MME.</span>
-          </div>
-          <span class="item-arrow">&rarr;</span>
-        </a>
-
-        <a class="item" href="https://www.gov.br/mme/pt-br/assuntos/noticias" target="_blank">
-          <div class="item-main">
-            <span class="item-title">Últimas Notícias</span>
-            <span class="item-desc">Comunicados e notícias recentes do Ministério de Minas e Energia.</span>
-          </div>
-          <span class="item-arrow">&rarr;</span>
-        </a>
-
-        <a class="item" href="https://consultas-publicas.mme.gov.br/home" target="_blank">
-          <div class="item-main">
-            <span class="item-title">Consultas Públicas MME</span>
-            <span class="item-desc">Propostas de políticas energéticas abertas a contribuições da sociedade.</span>
-          </div>
-          <span class="item-arrow">&rarr;</span>
-        </a>
-
-        <a class="item" href="https://www.gov.br/anp/pt-br/assuntos/consultas-e-audiencias-publicas/consulta-audiencia-publica" target="_blank">
-          <div class="item-main">
-            <span class="item-title">Consultas Públicas ANP</span>
-            <span class="item-desc">Consultas e audiências públicas da ANP sobre petróleo, gás e biocombustíveis.</span>
-          </div>
-          <span class="item-arrow">&rarr;</span>
+        <a class="link" href="https://calculostarifarios.aneel.gov.br/lista-publica" target="_blank" rel="noopener noreferrer">
+          <span class="link-main">
+            <span class="link-title">Processos Tarifários</span>
+            <span class="link-desc">Acompanhamento dos reajustes e revisões tarifárias das distribuidoras.</span>
+          </span>
+          <span class="link-arrow" aria-hidden="true">&rarr;</span>
         </a>
 
       </div>
-    </div>
+    </section>
+
+    <!-- ---------- MME ---------- -->
+    <section class="org mme" aria-label="MME, Ministério de Minas e Energia">
+      <div class="org-top">
+        <span class="org-sigla">MME</span>
+        <h2 class="org-nome">Ministério de Minas e Energia</h2>
+      </div>
+      <p class="org-count"><b>4</b> atalhos</p>
+      <div class="links">
+
+        <a class="link" href="https://www.gov.br/mme/pt-br/assuntos/conselhos-e-comites/cmse/atas" target="_blank" rel="noopener noreferrer">
+          <span class="link-main">
+            <span class="link-title">Atas CMSE</span>
+            <span class="link-desc">Atas do Comitê de Monitoramento do Setor Elétrico, presidido pelo MME.</span>
+          </span>
+          <span class="link-arrow" aria-hidden="true">&rarr;</span>
+        </a>
+
+        <a class="link" href="https://www.gov.br/mme/pt-br/assuntos/noticias" target="_blank" rel="noopener noreferrer">
+          <span class="link-main">
+            <span class="link-title">Últimas Notícias</span>
+            <span class="link-desc">Comunicados e notícias recentes do Ministério de Minas e Energia.</span>
+          </span>
+          <span class="link-arrow" aria-hidden="true">&rarr;</span>
+        </a>
+
+        <a class="link" href="https://consultas-publicas.mme.gov.br/home" target="_blank" rel="noopener noreferrer">
+          <span class="link-main">
+            <span class="link-title">Consultas Públicas MME</span>
+            <span class="link-desc">Propostas de políticas energéticas abertas a contribuições da sociedade.</span>
+          </span>
+          <span class="link-arrow" aria-hidden="true">&rarr;</span>
+        </a>
+
+        <a class="link" href="https://www.gov.br/anp/pt-br/assuntos/consultas-e-audiencias-publicas/consulta-audiencia-publica" target="_blank" rel="noopener noreferrer">
+          <span class="link-main">
+            <span class="link-title">Consultas Públicas ANP</span>
+            <span class="link-desc">Consultas e audiências da ANP sobre petróleo, gás e biocombustíveis.</span>
+          </span>
+          <span class="link-arrow" aria-hidden="true">&rarr;</span>
+        </a>
+
+      </div>
+    </section>
 
   </div>
+</div>
 </body>
 </html>
