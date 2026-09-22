@@ -7,7 +7,7 @@
 <style>
 /* ============================================================
    LINKS RÁPIDOS / componente para a página do SharePoint
-   Mesmo padrão visual do componente das gerências da DREG.
+   Mesmo padrão visual dos demais componentes da diretoria.
    Sem JavaScript.
    ============================================================ */
 
@@ -78,9 +78,7 @@ body{
   text-shadow:0 2px 12px rgba(0,0,0,.30);
 }
 /* espaçador do mesmo tamanho do símbolo: é ele que mantém o título
-   opticamente centralizado, em vez de deslocado para a esquerda.
-   Neste tópico não há símbolo, então os dois ficam sem uso: são
-   mantidos para o bloco do cabeçalho ser idêntico nos três arquivos. */
+   opticamente centralizado, em vez de deslocado para a esquerda */
 .tb-vazio{ flex:0 0 var(--sym); width:var(--sym); }
 .tb-sym{ flex:0 0 var(--sym); width:var(--sym); height:auto; }
 @media(max-width:620px){ .tb-inner{ padding:0 15px; } }
@@ -89,6 +87,58 @@ body{
   .topbar{ --sym:66px; }
 }
 /* ══════════════════ fim do cabeçalho padrão ══════════════════ */
+
+/* ════════════════════════════════════════════════════════════
+   SÍMBOLO 3D DA DIRETORIA
+   Cinco camadas orbitais em torno de uma esfera. Cada órbita tem
+   raio próprio, o que separa GRTC e GGAT, cujas cores são as mais
+   próximas da paleta.
+   A esfera fica NO MEIO das órbitas: cada órbita é partida em duas,
+   a metade de cima (distante) atrás da esfera e a de baixo (próxima)
+   na frente. Cada partícula tem duas cópias, uma por camada, e a
+   troca acontece nos extremos laterais, fora da silhueta da esfera.
+   ════════════════════════════════════════════════════════════ */
+.s3{ display:block; overflow:visible; }
+.s3 .plano{
+  transform-box:view-box; transform-origin:50px 50px;
+  animation-timing-function:linear; animation-iteration-count:infinite;
+}
+.s3 .pl-grtc{ animation-name:plano000; animation-duration:43s; }
+.s3 .pl-geer{ animation-name:plano036; animation-duration:37s; }
+.s3 .pl-ggat{ animation-name:plano072; animation-duration:54s; }
+.s3 .pl-grec{ animation-name:plano108; animation-duration:49s; }
+.s3 .pl-asse{ animation-name:plano144; animation-duration:63s; }
+@keyframes plano000{ from{ transform:rotate(0deg);   } to{ transform:rotate(360deg);  } }
+@keyframes plano036{ from{ transform:rotate(36deg);  } to{ transform:rotate(-324deg); } }
+@keyframes plano072{ from{ transform:rotate(72deg);  } to{ transform:rotate(432deg);  } }
+@keyframes plano108{ from{ transform:rotate(108deg); } to{ transform:rotate(-252deg); } }
+@keyframes plano144{ from{ transform:rotate(144deg); } to{ transform:rotate(504deg);  } }
+.s3 .esfera{ transform-box:fill-box; transform-origin:center; animation:respira 10s ease-in-out infinite; }
+@keyframes respira{ 0%,100%{ transform:scale(1); } 50%{ transform:scale(1.035); } }
+.s3 .brilho{ transform-box:fill-box; transform-origin:center; animation:brilha 10s ease-in-out infinite; }
+@keyframes brilha{ 0%,100%{ transform:translate(0,0); opacity:.92; } 50%{ transform:translate(1.5px,-1px); opacity:1; } }
+.s3 .part{
+  offset-rotate:0deg;
+  transform-box:fill-box; transform-origin:center;
+  animation-timing-function:linear; animation-iteration-count:infinite;
+}
+.s3 .p-grtc{ offset-path:path('M 14,50   a 36,14     0 1,0 72,0 a 36,14     0 1,0 -72,0'); animation-duration:14s,  14s,  14s;   }
+.s3 .p-geer{ offset-path:path('M 16,50   a 34,13     0 1,0 68,0 a 34,13     0 1,0 -68,0'); animation-duration:12.2s,12.2s,12.2s; animation-delay:-4.3s,-4.3s,-4.3s; }
+.s3 .p-ggat{ offset-path:path('M 19,50   a 31,11.5   0 1,0 62,0 a 31,11.5   0 1,0 -62,0'); animation-duration:18s,  18s,  18s;   animation-delay:-8.6s,-8.6s,-8.6s; }
+.s3 .p-grec{ offset-path:path('M 21.5,50 a 28.5,10.5 0 1,0 57,0 a 28.5,10.5 0 1,0 -57,0'); animation-duration:15.7s,15.7s,15.7s; animation-delay:-2.1s,-2.1s,-2.1s; }
+.s3 .p-asse{ offset-path:path('M 24,50   a 26,9.5    0 1,0 52,0 a 26,9.5    0 1,0 -52,0'); animation-duration:20.3s,20.3s,20.3s; animation-delay:-11.4s,-11.4s,-11.4s; }
+@keyframes orbVolta{ to{ offset-distance:100%; } }
+@keyframes orbEscala{
+  0%  { transform:scale(1);    }
+  25% { transform:scale(1.20); }
+  50% { transform:scale(1);    }
+  75% { transform:scale(.60);  }
+  100%{ transform:scale(1);    }
+}
+.s3 .pn{ animation-name:orbVolta, orbEscala, orbCamadaFrente; }
+@keyframes orbCamadaFrente{ 0%,49.9%{ opacity:1; } 50%,100%{ opacity:0; } }
+.s3 .pf{ animation-name:orbVolta, orbEscala, orbCamadaFundo; }
+@keyframes orbCamadaFundo{ 0%,49.9%{ opacity:0; } 50%,100%{ opacity:1; } }
 
 .wrap{ max-width:1180px; margin:0 auto; padding:26px 22px 34px; }
 
@@ -155,7 +205,12 @@ body{
   .wrap{ padding:20px 15px 26px; }
   .links{ grid-template-columns:1fr; }
 }
-@media(prefers-reduced-motion:reduce){ *{ transition-duration:.01ms!important; } }
+@media(prefers-reduced-motion:reduce){
+  *{ transition-duration:.01ms!important; }
+  /* o símbolo congela; o desenho permanece legível */
+  .s3 .plano,.s3 .esfera,.s3 .brilho,.s3 .part{ animation:none!important; }
+  .s3 .pf{ opacity:1; }
+}
 </style>
 </head>
 <body>
@@ -175,7 +230,61 @@ body{
     </g>
   </svg>
   <div class="tb-inner">
+    <div class="tb-vazio" aria-hidden="true"></div>
     <h1 class="tb-title">Links Rápidos - Setor Elétrico</h1>
+
+    <!-- Símbolo da diretoria: esfera e cinco camadas orbitais -->
+    <svg class="s3 tb-sym" viewBox="9 30 82 40" role="img"
+         aria-label="Símbolo da Diretoria de Regulação: as quatro gerências e as assessorias orbitando um núcleo">
+      <defs>
+        <radialGradient id="g-esfera" cx="34%" cy="28%" r="78%">
+          <stop offset="0%"   stop-color="#5FE0EE"/>
+          <stop offset="24%"  stop-color="#1BA5BA"/>
+          <stop offset="62%"  stop-color="#0B6E7E"/>
+          <stop offset="88%"  stop-color="#064A57"/>
+          <stop offset="100%" stop-color="#03323C"/>
+        </radialGradient>
+        <radialGradient id="g-rim" cx="50%" cy="50%" r="50%">
+          <stop offset="76%"  stop-color="#5FE3F0" stop-opacity="0"/>
+          <stop offset="94%"  stop-color="#5FE3F0" stop-opacity=".40"/>
+          <stop offset="100%" stop-color="#9BF2FA" stop-opacity=".70"/>
+        </radialGradient>
+        <radialGradient id="g-brilho" cx="50%" cy="50%" r="50%">
+          <stop offset="0%"   stop-color="#FFFFFF" stop-opacity=".92"/>
+          <stop offset="55%"  stop-color="#FFFFFF" stop-opacity=".28"/>
+          <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <g fill="none" stroke-width="1.5" stroke-linecap="round">
+        <path class="plano pl-grtc" d="M 14,50   A 36,14     0 0 1 86,50"   stroke="rgba(0,159,194,.48)"/>
+        <path class="plano pl-geer" d="M 16,50   A 34,13     0 0 1 84,50"   stroke="rgba(243,112,33,.48)"/>
+        <path class="plano pl-ggat" d="M 19,50   A 31,11.5   0 0 1 81,50"   stroke="rgba(86,183,171,.50)"/>
+        <path class="plano pl-grec" d="M 21.5,50 A 28.5,10.5 0 0 1 78.5,50" stroke="rgba(194,205,35,.52)"/>
+        <path class="plano pl-asse" d="M 24,50   A 26,9.5    0 0 1 76,50"   stroke="rgba(206,212,215,.46)"/>
+      </g>
+      <g class="plano pl-grtc"><circle class="part pf p-grtc" r="3.0" fill="#009FC2"/></g>
+      <g class="plano pl-geer"><circle class="part pf p-geer" r="2.9" fill="#F37021"/></g>
+      <g class="plano pl-ggat"><circle class="part pf p-ggat" r="2.6" fill="#56B7AB"/></g>
+      <g class="plano pl-grec"><circle class="part pf p-grec" r="2.5" fill="#C2CD23"/></g>
+      <g class="plano pl-asse"><circle class="part pf p-asse" r="2.3" fill="#CED4D7"/></g>
+      <g class="esfera">
+        <circle cx="50" cy="50" r="15" fill="url(#g-esfera)"/>
+        <circle cx="50" cy="50" r="15" fill="url(#g-rim)"/>
+        <ellipse class="brilho" cx="44.5" cy="43.5" rx="5.6" ry="4.2" fill="url(#g-brilho)"/>
+      </g>
+      <g fill="none" stroke-width="1.5" stroke-linecap="round">
+        <path class="plano pl-grtc" d="M 14,50   A 36,14     0 0 0 86,50"   stroke="rgba(0,159,194,.94)"/>
+        <path class="plano pl-geer" d="M 16,50   A 34,13     0 0 0 84,50"   stroke="rgba(243,112,33,.94)"/>
+        <path class="plano pl-ggat" d="M 19,50   A 31,11.5   0 0 0 81,50"   stroke="rgba(86,183,171,.96)"/>
+        <path class="plano pl-grec" d="M 21.5,50 A 28.5,10.5 0 0 0 78.5,50" stroke="rgba(194,205,35,.97)"/>
+        <path class="plano pl-asse" d="M 24,50   A 26,9.5    0 0 0 76,50"   stroke="rgba(206,212,215,.86)"/>
+      </g>
+      <g class="plano pl-grtc"><circle class="part pn p-grtc" r="3.0" fill="#009FC2"/></g>
+      <g class="plano pl-geer"><circle class="part pn p-geer" r="2.9" fill="#F37021"/></g>
+      <g class="plano pl-ggat"><circle class="part pn p-ggat" r="2.6" fill="#56B7AB"/></g>
+      <g class="plano pl-grec"><circle class="part pn p-grec" r="2.5" fill="#C2CD23"/></g>
+      <g class="plano pl-asse"><circle class="part pn p-asse" r="2.3" fill="#CED4D7"/></g>
+    </svg>
   </div>
 </header>
 
